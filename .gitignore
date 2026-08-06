@@ -1,0 +1,63 @@
+# Compressed archives
+*.zip
+*.rar
+*.7z
+*.tar
+*.gz
+
+# Installers and executable libraries
+*.exe
+*.dll
+*.msi
+*.iso
+
+# Licenses, keys and private configuration
+*.lic
+*.license
+*.key
+*.pem
+*.pfx
+*.p12
+.env
+.env.*
+id_rsa
+id_rsa.*
+id_ed25519
+id_ed25519.*
+ise_vivado_lic.zip
+
+# Vivado, ISE and compiler-generated content
+.Xil/
+.cache/
+.runs/
+.gen/
+.hw/
+.sim/
+.ip_user_files/
+ip_user_files/
+Debug/
+Release/
+*.obj
+*.o
+*.out
+*.map
+*.pdb
+*.jou
+*.log
+*.str
+*.wdb
+*.dcp
+*.tmp
+*.bak
+
+# IDE and operating-system files
+.vscode/
+.idea/
+.vs/
+.metadata/
+Thumbs.db
+Desktop.ini
+~$*
+
+# Local scanning output
+_github_scan/

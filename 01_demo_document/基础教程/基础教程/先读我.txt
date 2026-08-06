@@ -1,0 +1,1 @@
+《01.verilog基础模块.pdf》 文中讲解了verilog的基本语法。

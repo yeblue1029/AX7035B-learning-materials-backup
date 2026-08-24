@@ -1,0 +1,17 @@
+# Vivado generated/build directories
+**/.Xil/
+**/*.runs/
+**/*.cache/
+**/*.hw/
+**/*.sim/
+**/*.gen/
+**/ip_user_files/
+**/*.ip_user_files/
+**/xsim.dir/
+
+# Vivado temporary/runtime files
+*.jou
+*.str
+*.pb
+*.wdb
+*.dcp

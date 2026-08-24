@@ -17,6 +17,21 @@ AX7035B FPGA 开发板学习资料、实验工程、原理图、芯片资料与�
 - 不上传可重新生成的 Vivado、ISE 和编译输出
 - 第三方资料在确认公开再分发许可后再上传
 
+## AI-Assisted Learning
+
+This repository includes AI navigation and learning assistance:
+
+- **`AI_REPO_INDEX/`** — Repository navigation index. Use it to find demos, projects, constraints, IP cores, and key files. The index is a navigation layer, not the source of truth. Always open actual files to verify facts.
+
+- **`.trae/skills/ax7035b-learning/SKILL.md`** — TRAE project-level AX7035B learning skill. Provides evidence-first workflow for learning, development, and debugging.
+
+To regenerate the index:
+```
+.trae/skills/ax7035b-learning/GENERATE_REPO_INDEX.cmd
+```
+
+Vivado generated build outputs (*.runs, *.cache, *.hw, *.sim, *.gen, ip_user_files) are intentionally excluded from tracking. Learning should prioritize: tutorial → XPR → XDC → top RTL → IP configuration → board manual/datasheet.
+
 ## 当前状态
 
 仓库正在根据本地扫描结果分阶段整理和上传。

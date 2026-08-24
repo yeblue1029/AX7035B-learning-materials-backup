@@ -1,5 +1,0 @@
-<?xml version="1.0"?>
-<Runs Version="1" Minor="0">
-	<Run Id="ddr3_synth_1" LaunchDir="E:/Project/AX7035/CD/demo/14_1_dual_ov5640_an5642_hdmi/dual_ov5640_an5642_hdmi/dual_ov5640_an5642_hdmi.runs/ddr3_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
-</Runs>
-

@@ -26,15 +26,27 @@ id_ed25519
 id_ed25519.*
 ise_vivado_lic.zip
 
-# Vivado, ISE and compiler-generated content
-.Xil/
-.cache/
-.runs/
-.gen/
-.hw/
-.sim/
-.ip_user_files/
-ip_user_files/
+# Vivado generated/build directories
+**/.Xil/
+**/*.runs/
+**/*.cache/
+**/*.hw/
+**/*.sim/
+**/*.gen/
+**/ip_user_files/
+**/*.ip_user_files/
+**/xsim.dir/
+
+# Vivado temporary/runtime files
+*.jou
+*.str
+*.pb
+*.wdb
+*.dcp
+*.tmp
+*.bak
+
+# Compiler-generated content
 Debug/
 Release/
 *.obj
@@ -42,13 +54,7 @@ Release/
 *.out
 *.map
 *.pdb
-*.jou
 *.log
-*.str
-*.wdb
-*.dcp
-*.tmp
-*.bak
 
 # IDE and operating-system files
 .vscode/
@@ -59,5 +65,9 @@ Thumbs.db
 Desktop.ini
 ~$*
 
-# Local scanning output
+# Local GitHub automation work areas
+_github_worktree/
+_github_extract_staging/
+_github_upload_logs/
+.github_upload_logs/
 _github_scan/

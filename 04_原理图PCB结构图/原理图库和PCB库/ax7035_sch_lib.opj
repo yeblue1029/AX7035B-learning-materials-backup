@@ -1,0 +1,46 @@
+(ExpressProject ""
+  (ProjectVersion "19981106")
+  (Folder "Design Resources"
+    (Folder "Library")
+    (File ".\ax7035_sch_lib.olb"
+      (Type "Schematic Library"))
+    (BuildFileAddedOrDeleted "x")
+    (CompileFileAddedOrDeleted "x")
+    (NoModify))
+  (Folder "Outputs")
+  (Folder "Referenced Projects")
+  (GlobalState
+    (FileView
+      (Path "Design Resources")
+      (Path "Design Resources" ".\ax7035_sch_lib.olb")
+      (Select "Design Resources" ".\ax7035_sch_lib.olb" "CAP"))
+    (HierarchyView)
+    (Doc
+      (Type "COrCapturePMDoc")
+      (Frame
+        (Placement "44 2 3 -1 -1 -8 -31 0 200 0 150"))
+      (Tab 0))
+    (Doc
+      (Type "COrPartDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 0 1551 0 565")
+        (PackageScroll "0 0")
+        (PackageZoom "1")
+        (PartPackage "Part")
+        (Scroll "4913 1415")
+        (Zoom "749"))
+      (Path
+         "Z:\PROJECT\AX\AX7035\CD\04_原理图PCB结构图\原理图库和PCB库\AX7035_SCH_LIB.OLB")
+      (Package "RESISTOR"))
+    (Doc
+      (Type "COrPartDoc")
+      (Frame
+        (Placement "44 0 1 -1 -1 -8 -31 26 1577 26 591")
+        (PackageScroll "0 0")
+        (PackageZoom "1")
+        (PartPackage "Part")
+        (Scroll "6814 2288")
+        (Zoom "1008"))
+      (Path
+         "Z:\PROJECT\AX\AX7035\CD\04_原理图PCB结构图\原理图库和PCB库\AX7035_SCH_LIB.OLB")
+      (Package "CAP"))))

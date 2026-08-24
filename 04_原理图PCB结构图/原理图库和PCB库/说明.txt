@@ -1,0 +1,5 @@
+AX7035_SCH_LIB.OLB          ---------   AX7035 Cadence 原理图库文件
+AX7035B_SCH_LIB.OLB          ---------   AX7035B Cadence 原理图库文件
+
+AX7035_PCB_Allegro_LIB.zip  ---------   AX7035 allegro（16.5） PCB库文件
+AX7035B_PCB_Allegro_LIB.zip  ---------   AX7035B allegro（16.5） PCB库文件

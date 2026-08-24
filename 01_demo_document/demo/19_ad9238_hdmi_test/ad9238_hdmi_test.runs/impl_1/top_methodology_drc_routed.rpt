@@ -1,0 +1,47 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
+| Date         : Wed Mar 11 12:42:56 2020
+| Host         : PC-201805041311 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file top_methodology_drc_routed.rpt -pb top_methodology_drc_routed.pb -rpx top_methodology_drc_routed.rpx
+| Design       : top
+| Device       : xc7a35tfgg484-2
+| Speed File   : -2
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 2
++---------+----------+---------------------------------------------+------------+
+| Rule    | Severity | Description                                 | Violations |
++---------+----------+---------------------------------------------+------------+
+| LUTAR-1 | Warning  | LUT drives async reset alert                | 1          |
+| XDCB-5  | Warning  | Runtime inefficient way to find pin objects | 1          |
++---------+----------+---------------------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+LUTAR-1#1 Warning
+LUT drives async reset alert  
+LUT cell ad9238_sample_m1/sample_cnt[1]_i_1__0, with 2 or more inputs, drives asynchronous preset/clear pin(s) ad9238_sample_m0/FSM_onehot_state_reg[1]/CLR, ad9238_sample_m0/FSM_onehot_state_reg[2]/CLR, ad9238_sample_m0/adc_buf_wr_reg/CLR, ad9238_sample_m0/adc_data_d0_reg[10]/CLR, ad9238_sample_m0/adc_data_d0_reg[4]/CLR, ad9238_sample_m0/adc_data_d0_reg[5]/CLR, ad9238_sample_m0/adc_data_d0_reg[6]/CLR, ad9238_sample_m0/adc_data_d0_reg[7]/CLR, ad9238_sample_m0/adc_data_d0_reg[8]/CLR, ad9238_sample_m0/adc_data_d0_reg[9]/CLR, ad9238_sample_m0/adc_data_narrow_reg[0]/CLR, ad9238_sample_m0/adc_data_narrow_reg[1]/CLR, ad9238_sample_m0/adc_data_narrow_reg[2]/CLR, ad9238_sample_m0/adc_data_narrow_reg[3]/CLR, ad9238_sample_m0/adc_data_narrow_reg[4]/CLR (the first 15 of 257 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+XDCB-5#1 Warning
+Runtime inefficient way to find pin objects  
+The option '-through : [get_pins -filter {NAME =~ *SyncAsync*/oSyncStages_reg[0]/D} -hier]' of constraint 'set_false_path' uses inefficient query to find pin objects (see constraint position '3' in the Timing Constraint window in Vivado IDE). To reduce runtime, it is recommended to get the pins through the cell objects. Please refer to Using Constraints Guide (Constraints Efficiency). An example of optimal query is: get_pins -filter {REF_PIN_NAME=~yy*} -of_objects [get_cells -hierarchical xx*].
+Current XDC: I:/ax7035_2019.1/demo/19_ad9238_hdmi_test/ad9226_hdmi_test/ad9226_hdmi_test.srcs/constrs_1/new/top.xdc (Line: 42)
+Related violations: <none>
+
+

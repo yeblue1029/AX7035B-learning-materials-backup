@@ -1,0 +1,97 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
+| Date         : Wed Mar 11 12:42:33 2020
+| Host         : PC-201805041311 running 64-bit major release  (build 9200)
+| Command      : report_control_sets -verbose -file top_control_sets_placed.rpt
+| Design       : top
+| Device       : xc7a35t
+------------------------------------------------------------------------------------
+
+Control Set Information
+
+Table of Contents
+-----------------
+1. Summary
+2. Histogram
+3. Flip-Flop Distribution
+4. Detailed Control Set Information
+
+1. Summary
+----------
+
++----------------------------------------------------------+-------+
+|                          Status                          | Count |
++----------------------------------------------------------+-------+
+| Total control sets                                       |    19 |
+|    Minimum number of control sets                        |    19 |
+|    Addition due to synthesis replication                 |     0 |
+|    Addition due to physical synthesis replication        |     0 |
+| Unused register locations in slices containing registers |    75 |
++----------------------------------------------------------+-------+
+* Control sets can be merged at opt_design using control_set_merge or merge_equivalent_drivers
+** Run report_qor_suggestions for automated merging and remapping suggestions
+
+
+2. Histogram
+------------
+
++--------------------+-------+
+|       Fanout       | Count |
++--------------------+-------+
+| Total control sets |    19 |
+| >= 0 to < 4        |     0 |
+| >= 4 to < 6        |     2 |
+| >= 6 to < 8        |     1 |
+| >= 8 to < 10       |     1 |
+| >= 10 to < 12      |     4 |
+| >= 12 to < 14      |     5 |
+| >= 14 to < 16      |     0 |
+| >= 16              |     6 |
++--------------------+-------+
+* Control sets can be remapped at either synth_design or opt_design
+
+
+3. Flip-Flop Distribution
+-------------------------
+
++--------------+-----------------------+------------------------+-----------------+--------------+
+| Clock Enable | Synchronous Set/Reset | Asynchronous Set/Reset | Total Registers | Total Slices |
++--------------+-----------------------+------------------------+-----------------+--------------+
+| No           | No                    | No                     |              94 |           29 |
+| No           | No                    | Yes                    |             111 |           34 |
+| No           | Yes                   | No                     |              70 |           21 |
+| Yes          | No                    | No                     |               0 |            0 |
+| Yes          | No                    | Yes                    |             146 |           39 |
+| Yes          | Yes                   | No                     |               0 |            0 |
++--------------+-----------------------+------------------------+-----------------+--------------+
+
+
+4. Detailed Control Set Information
+-----------------------------------
+
++-----------------------------+-----------------------------------------------------+---------------------------------------------------------------+------------------+----------------+
+|         Clock Signal        |                    Enable Signal                    |                        Set/Reset Signal                       | Slice Load Count | Bel Load Count |
++-----------------------------+-----------------------------------------------------+---------------------------------------------------------------+------------------+----------------+
+|  video_pll_m0/inst/clk_out1 |                                                     | wav_display_m0/timing_gen_xy_m0/region_active_reg             |                1 |              4 |
+|  video_pll_m0/inst/clk_out1 |                                                     | wav_display_m1/timing_gen_xy_m0/region_active_reg             |                1 |              4 |
+|  video_pll_m0/inst/clk_out1 |                                                     | rgb2dvi_m0/DataEncoders[0].DataEncoder/pDataOutRaw[9]_i_1_n_0 |                2 |              6 |
+|  video_pll_m0/inst/clk_out1 |                                                     | grid_display_m0/timing_gen_xy_m0/SR[0]                        |                3 |              9 |
+|  video_pll_m0/inst/clk_out1 |                                                     | wav_display_m0/timing_gen_xy_m0/SR[0]                         |                2 |             10 |
+|  video_pll_m0/inst/clk_out1 |                                                     | wav_display_m1/timing_gen_xy_m0/SR[0]                         |                3 |             10 |
+|  adc_pll_m0/inst/clk_out1   | ad9238_sample_m0/sample_cnt                         | ad9238_sample_m1/AR[0]                                        |                5 |             11 |
+|  adc_pll_m0/inst/clk_out1   | ad9238_sample_m1/sample_cnt                         | ad9238_sample_m1/AR[0]                                        |                3 |             11 |
+|  video_pll_m0/inst/clk_out1 | wav_display_m0/timing_gen_xy_m0/y_cnt[0]_i_1__0_n_0 | ad9238_sample_m1/AR[0]                                        |                3 |             12 |
+|  video_pll_m0/inst/clk_out1 | wav_display_m1/timing_gen_xy_m0/y_cnt[0]_i_1__1_n_0 | ad9238_sample_m1/AR[0]                                        |                3 |             12 |
+|  video_pll_m0/inst/clk_out1 | color_bar_m0/v_cnt                                  | ad9238_sample_m1/AR[0]                                        |                3 |             12 |
+|  video_pll_m0/inst/clk_out1 | color_bar_m0/p_0_in                                 | ad9238_sample_m1/AR[0]                                        |                4 |             12 |
+|  video_pll_m0/inst/clk_out1 | grid_display_m0/timing_gen_xy_m0/y_cnt[0]_i_1_n_0   | ad9238_sample_m1/AR[0]                                        |                3 |             12 |
+|  video_pll_m0/inst/clk_out1 |                                                     | rgb2dvi_m0/DataEncoders[0].DataEncoder/SR[0]                  |                9 |             27 |
+|  adc_pll_m0/inst/clk_out1   | ad9238_sample_m0/wait_cnt                           | ad9238_sample_m1/AR[0]                                        |                8 |             32 |
+|  adc_pll_m0/inst/clk_out1   | ad9238_sample_m1/wait_cnt                           | ad9238_sample_m1/AR[0]                                        |                7 |             32 |
+|  adc_pll_m0/inst/clk_out1   |                                                     | ad9238_sample_m1/AR[0]                                        |               17 |             53 |
+|  video_pll_m0/inst/clk_out1 |                                                     | ad9238_sample_m1/AR[0]                                        |               17 |             58 |
+|  video_pll_m0/inst/clk_out1 |                                                     |                                                               |               30 |            103 |
++-----------------------------+-----------------------------------------------------+---------------------------------------------------------------+------------------+----------------+
+
+

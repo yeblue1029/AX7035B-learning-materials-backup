@@ -1,0 +1,66 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
+| Date         : Fri Jul 26 09:12:01 2019
+| Host         : PC-201805041311 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file led_test_methodology_drc_routed.rpt -pb led_test_methodology_drc_routed.pb -rpx led_test_methodology_drc_routed.rpx
+| Design       : led_test
+| Device       : xc7a35tfgg484-2
+| Speed File   : -2
+| Design State : Fully Routed
+--------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 6
++-----------+----------+-------------------------------+------------+
+| Rule      | Severity | Description                   | Violations |
++-----------+----------+-------------------------------+------------+
+| LUTAR-1   | Warning  | LUT drives async reset alert  | 1          |
+| TIMING-18 | Warning  | Missing input or output delay | 5          |
++-----------+----------+-------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+LUTAR-1#1 Warning
+LUT drives async reset alert  
+LUT cell timer[31]_i_4, with 2 or more inputs, drives asynchronous preset/clear pin(s) led_reg[0]/CLR, led_reg[1]/CLR, led_reg[2]/CLR, led_reg[3]/CLR, timer_reg[0]/CLR, timer_reg[10]/CLR, timer_reg[11]/CLR, timer_reg[12]/CLR, timer_reg[13]/CLR, timer_reg[14]/CLR, timer_reg[15]/CLR, timer_reg[16]/CLR, timer_reg[17]/CLR, timer_reg[18]/CLR, timer_reg[19]/CLR (the first 15 of 36 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on rst_n relative to clock(s) sys_clk
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An output delay is missing on led[0] relative to clock(s) sys_clk
+Related violations: <none>
+
+TIMING-18#3 Warning
+Missing input or output delay  
+An output delay is missing on led[1] relative to clock(s) sys_clk
+Related violations: <none>
+
+TIMING-18#4 Warning
+Missing input or output delay  
+An output delay is missing on led[2] relative to clock(s) sys_clk
+Related violations: <none>
+
+TIMING-18#5 Warning
+Missing input or output delay  
+An output delay is missing on led[3] relative to clock(s) sys_clk
+Related violations: <none>
+
+

@@ -1,9 +1,6 @@
-Repository: AX7035B-learning-materials
-GitHub: https://github.com/yeblue1029/AX7035B-learning-materials
-HEAD: 846f8daa61a4124b5791e64496af309dafcc64e6
-origin/main: 846f8daa61a4124b5791e64496af309dafcc64e6
-HEAD == origin/main: MATCH
-Commit Date: 2026-08-24 17:55:37 +0800
-Last Commit: lfs: add 02_Verilog数字系统设计教程_夏宇闻（第3版）_修正版书签.pdf (123.7 MiB, LFS)
-Generated: 2026-08-24 18:00:29
-Total Files: 14737
+﻿IndexedSourceCommit=dac63720e9783c69e626cefac27707a62c9392b8
+GeneratedAt=2026-08-24T11:24:08Z
+IndexMethod=git ls-files
+IndexScope=tracked source corpus excluding AI-generated index/skill artifacts
+TotalIndexedFiles=5233
+TotalDirectories=958

@@ -1,6 +1,6 @@
 ﻿# Important Files by Learning Value
 # Organized by topic for learning navigation
-# Generated: 2026-08-24T11:24:08Z
+# Generated: 2026-08-24T11:56:46Z
 
 Topic	Path	Reason	RelatedDemo
 Board Manuals	06_模块资料/AN706模块/ALINX706用户手册REV1.0.pdf	Board Manuals reference	(root)

@@ -232,10 +232,20 @@ These facts are confirmed by repository evidence. For unverified items, check bo
 | Ethernet interface | RGMII | XDC: `rgmii_rxd/txd/rxc/txc/rxctl/txctl` |
 | Ethernet IOSTANDARD | LVCMOS33 | XDC: `IOSTANDARD LVCMOS33` |
 | HDMI interface | TMDS (direct) | XDC: `IOSTANDARD TMDS_33`, TMDS_clk/data ports |
-| HDMI connection | Direct to FPGA diff IO | XDC: no external transmitter/receiver chip |
+| HDMI connection | Direct to FPGA diff IO | Manual + Schematic: direct TMDS, no external HDMI chip (HIGH) |
 
-For chip models (DDR3 part number, Ethernet PHY, USB controller, UART chip):
-**Check board manuals and schematics in the repository.**
+Chip models verified from board manuals and schematics (Phase 3.1):
+
+| Chip | Model | Evidence |
+|------|-------|---------|
+| DDR3 | MT41J128M16HA-125 (256MB) | Manual REV1.0 p.10, Schematic p.5 |
+| Ethernet PHY | JL2121-N040I (Gigabit) | Manual REV1.0 p.4, p.13 |
+| USB2.0 controller | FT232H (FTDI) | Manual REV1.0 p.19, Schematic p.11 |
+| USB-UART bridge | CP2102GM (Silicon Labs) | Manual REV1.0 p.22, Schematic p.13 |
+| QSPI Flash | N25Q128 (128Mbit) | Manual REV1.0 p.12, Schematic p.9 |
+| System clock | 50MHz active (Sitime, pin Y18) | Manual REV1.0 p.9 |
+| JTAG | External 7x2 header (no onboard programmer) | Manual REV1.0 p.30 |
+| GTP | NOT used (all pins NC) | Manual REV1.0 p.9, Schematic p.6 |
 
 For XC7A35T device resources (logic cells, BRAM, DSP):
 **Check Xilinx/AMD official device documentation in `05_芯片手册/`.**

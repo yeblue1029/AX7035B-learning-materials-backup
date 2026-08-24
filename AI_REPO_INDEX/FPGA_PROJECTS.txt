@@ -1,46 +1,46 @@
 ﻿# FPGA Vivado Project Index
 # Each project has at least one .xpr file
-# Generated: 2026-08-24T11:24:08Z
+# Generated: 2026-08-24T11:56:46Z
 
 ProjectName	XPRPath	ProjectRoot	Demo	HDLCount	ConstraintCount	IPCount	BDCount	TopModule	TopModuleEvidence
-led_test	01_demo_document/demo/01_led_test/led_test.xpr	01_demo_document\demo\01_led_test	01_led_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-key_test	01_demo_document/demo/02_key_test/key_test.xpr	01_demo_document\demo\02_key_test	02_key_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-pll_test	01_demo_document/demo/03_pll_test/pll_test.xpr	01_demo_document\demo\03_pll_test	03_pll_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-uart_test	01_demo_document/demo/04_uart_test/uart_test.xpr	01_demo_document\demo\04_uart_test	04_uart_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-key_test	01_demo_document/demo/05_key_debounce/key_test.xpr	01_demo_document\demo\05_key_debounce	05_key_debounce	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-rom_test	01_demo_document/demo/07_rom_test/rom_test.xpr	01_demo_document\demo\07_rom_test	07_rom_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ram_test	01_demo_document/demo/08_ram_test/ram_test.xpr	01_demo_document\demo\08_ram_test	08_ram_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-fifo_test	01_demo_document/demo/09_fifo_test/fifo_test.xpr	01_demo_document\demo\09_fifo_test	09_fifo_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-sd_test	01_demo_document/demo/10_sd_test/sd_test.xpr	01_demo_document\demo\10_sd_test	10_sd_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-HDMI_output_test	01_demo_document/demo/11_1_hdmi_output_test/HDMI_output_test.xpr	01_demo_document\demo\11_1_hdmi_output_test	11_1_hdmi_output_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-lcd_test	01_demo_document/demo/11_2_an430_lcd_test/lcd_test.xpr	01_demo_document\demo\11_2_an430_lcd_test	11_2_an430_lcd_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-lcd_test	01_demo_document/demo/11_3_an070_lcd_test/lcd_test.xpr	01_demo_document\demo\11_3_an070_lcd_test	11_3_an070_lcd_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-hdmi_loop	01_demo_document/demo/11_4_hdmi_loop/hdmi_loop.xpr	01_demo_document\demo\11_4_hdmi_loop	11_4_hdmi_loop	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-hdmi_input_loopback_ddr	01_demo_document/demo/11_5hdmi_input_loopback_ddr/hdmi_input_loopback_ddr.xpr	01_demo_document\demo\11_5hdmi_input_loopback_ddr	11_5hdmi_input_loopback_ddr	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ddr3_ex	01_demo_document/demo/12_ddr3_test/ddr3_ex.xpr	01_demo_document\demo\12_ddr3_test	12_ddr3_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-audio_record_play	01_demo_document/demo/13_audio_record_play/audio_record_play.xpr	01_demo_document\demo\13_audio_record_play	13_audio_record_play	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-sd_card_audio	01_demo_document/demo/14_sd_card_audio/sd_card_audio.xpr	01_demo_document\demo\14_sd_card_audio	14_sd_card_audio	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-hdmi_char	01_demo_document/demo/15_1_hdmi_char/hdmi_char.xpr	01_demo_document\demo\15_1_hdmi_char	15_1_hdmi_char	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-lcd_char_an430	01_demo_document/demo/15_2_lcd_an430_char/lcd_char_an430.xpr	01_demo_document\demo\15_2_lcd_an430_char	15_2_lcd_an430_char	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-lcd_char_an070	01_demo_document/demo/15_3_lcd_an070_char/lcd_char_an070.xpr	01_demo_document\demo\15_3_lcd_an070_char	15_3_lcd_an070_char	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-sd_picture_hdmi	01_demo_document/demo/16_1_sd_picture_hdmi/sd_picture_hdmi.xpr	01_demo_document\demo\16_1_sd_picture_hdmi	16_1_sd_picture_hdmi	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-sd_picture_lcd	01_demo_document/demo/16_2_sd_picture_lcd_an430/sd_picture_lcd.xpr	01_demo_document\demo\16_2_sd_picture_lcd_an430	16_2_sd_picture_lcd_an430	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-sd_picture_lcd	01_demo_document/demo/16_3_sd_picture_lcd_an070/sd_picture_lcd.xpr	01_demo_document\demo\16_3_sd_picture_lcd_an070	16_3_sd_picture_lcd_an070	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-dual_ov5640_an5642_hdmi	01_demo_document/demo/17_1_dual_ov5640_an5642_hdmi/dual_ov5640_an5642_hdmi.xpr	01_demo_document\demo\17_1_dual_ov5640_an5642_hdmi	17_1_dual_ov5640_an5642_hdmi	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ddr3_an5642_lcd	01_demo_document/demo/17_2_ddr3_an5642_an430_lcd/ddr3_an5642_lcd.xpr	01_demo_document\demo\17_2_ddr3_an5642_an430_lcd	17_2_ddr3_an5642_an430_lcd	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ddr3_an5642_an070_lcd	01_demo_document/demo/17_3_ddr3_an5642_an070_lcd/ddr3_an5642_an070_lcd.xpr	01_demo_document\demo\17_3_ddr3_an5642_an070_lcd	17_3_ddr3_an5642_an070_lcd	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ddr3_an5642_hdmi_sobel	01_demo_document/demo/18_ddr3_an5642_hdmi_sobel/ddr3_an5642_hdmi_sobel.xpr	01_demo_document\demo\18_ddr3_an5642_hdmi_sobel	18_ddr3_an5642_hdmi_sobel	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ad9238_hdmi_test	01_demo_document/demo/19_ad9238_hdmi_test/ad9238_hdmi_test.xpr	01_demo_document\demo\19_ad9238_hdmi_test	19_ad9238_hdmi_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ad7606_hdmi_test	01_demo_document/demo/20_ad7606_hdmi_test/ad7606_hdmi_test.xpr	01_demo_document\demo\20_ad7606_hdmi_test	20_ad7606_hdmi_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-an108_adda_lcd	01_demo_document/demo/21_an108_adda_hdmi_test/an108_adda_lcd.xpr	01_demo_document\demo\21_an108_adda_hdmi_test	21_an108_adda_hdmi_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-an9767_test	01_demo_document/demo/22_ad9767_dual_sin_wave/an9767_test.xpr	01_demo_document\demo\22_ad9767_dual_sin_wave	22_ad9767_dual_sin_wave	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-an9767_test	01_demo_document/demo/23_ad9767_dual_trig_wave/an9767_test.xpr	01_demo_document\demo\23_ad9767_dual_trig_wave	23_ad9767_dual_trig_wave	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-smg_interface_demo	01_demo_document/demo/24_smg_interface_demo/smg_interface_demo.xpr	01_demo_document\demo\24_smg_interface_demo	24_smg_interface_demo	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-temp_lm75_test	01_demo_document/demo/25_temp_lm75_test/temp_lm75_test.xpr	01_demo_document\demo\25_temp_lm75_test	25_temp_lm75_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-eth_test	01_demo_document/demo/26_ethernet_test/eth_test.xpr	01_demo_document\demo\26_ethernet_test	26_ethernet_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ad9238_ethernet	01_demo_document/demo/27_ad9238_ethernet/ad9238_ethernet.xpr	01_demo_document\demo\27_ad9238_ethernet	27_ad9238_ethernet	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ad7606_ethernet	01_demo_document/demo/28_ad7606_ethernet/ad7606_ethernet.xpr	01_demo_document\demo\28_ad7606_ethernet	28_ad7606_ethernet	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-ad9280_ethernet	01_demo_document/demo/29_ad9280_ethernet/ad9280_ethernet.xpr	01_demo_document\demo\29_ad9280_ethernet	29_ad9280_ethernet	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-video_ethernet	01_demo_document/demo/30_video_ethernet/video_ethernet.xpr	01_demo_document\demo\30_video_ethernet	30_video_ethernet	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-usb_test	01_demo_document/demo/31_USB_speed_test/usb_test.xpr	01_demo_document\demo\31_USB_speed_test	31_USB_speed_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
-eeprom_test	01_demo_document/demo/6_i2c_eeprom_test/eeprom_test.xpr	01_demo_document\demo\6_i2c_eeprom_test	6_i2c_eeprom_test	0	0	0	0	UNKNOWN	Not determined - requires XPR property or TCL inspection
+led_test	01_demo_document/demo/01_led_test/led_test.xpr	01_demo_document/demo/01_led_test	01_led_test	2	1	0	0	led_test	XPR property (sources_1/TopModule)
+key_test	01_demo_document/demo/02_key_test/key_test.xpr	01_demo_document/demo/02_key_test	02_key_test	1	1	0	0	key_test	XPR property (sources_1/TopModule)
+pll_test	01_demo_document/demo/03_pll_test/pll_test.xpr	01_demo_document/demo/03_pll_test	03_pll_test	14	4	1	0	pll_test	XPR property (sources_1/TopModule)
+uart_test	01_demo_document/demo/04_uart_test/uart_test.xpr	01_demo_document/demo/04_uart_test	04_uart_test	7	1	0	0	uart_test	XPR property (sources_1/TopModule)
+key_test	01_demo_document/demo/05_key_debounce/key_test.xpr	01_demo_document/demo/05_key_debounce	05_key_debounce	4	1	0	0	key_debounce	XPR property (sources_1/TopModule)
+rom_test	01_demo_document/demo/07_rom_test/rom_test.xpr	01_demo_document/demo/07_rom_test	07_rom_test	43	5	2	0	rom_test	XPR property (sources_1/TopModule)
+ram_test	01_demo_document/demo/08_ram_test/ram_test.xpr	01_demo_document/demo/08_ram_test	08_ram_test	47	5	2	0	ram_test	XPR property (sources_1/TopModule)
+fifo_test	01_demo_document/demo/09_fifo_test/fifo_test.xpr	01_demo_document/demo/09_fifo_test	09_fifo_test	49	7	2	0	fifo_test	XPR property (sources_1/TopModule)
+sd_test	01_demo_document/demo/10_sd_test/sd_test.xpr	01_demo_document/demo/10_sd_test	10_sd_test	43	4	1	0	sd_card_test	XPR property (sources_1/TopModule)
+HDMI_output_test	01_demo_document/demo/11_1_hdmi_output_test/HDMI_output_test.xpr	01_demo_document/demo/11_1_hdmi_output_test	11_1_hdmi_output_test	17	4	0	0	top	XPR property (sources_1/TopModule)
+lcd_test	01_demo_document/demo/11_2_an430_lcd_test/lcd_test.xpr	01_demo_document/demo/11_2_an430_lcd_test	11_2_an430_lcd_test	15	5	1	0	top	XPR property (sources_1/TopModule)
+lcd_test	01_demo_document/demo/11_3_an070_lcd_test/lcd_test.xpr	01_demo_document/demo/11_3_an070_lcd_test	11_3_an070_lcd_test	16	5	1	0	top	XPR property (sources_1/TopModule)
+hdmi_loop	01_demo_document/demo/11_4_hdmi_loop/hdmi_loop.xpr	01_demo_document/demo/11_4_hdmi_loop	11_4_hdmi_loop	60	10	1	0	top	XPR property (sources_1/TopModule)
+hdmi_input_loopback_ddr	01_demo_document/demo/11_5hdmi_input_loopback_ddr/hdmi_input_loopback_ddr.xpr	01_demo_document/demo/11_5hdmi_input_loopback_ddr	11_5hdmi_input_loopback_ddr	185	17	5	0	top	XPR property (sources_1/TopModule)
+ddr3_ex	01_demo_document/demo/12_ddr3_test/ddr3_ex.xpr	01_demo_document/demo/12_ddr3_test	12_ddr3_test	94	3	1	0	example_top	XPR property (sources_1/TopModule)
+audio_record_play	01_demo_document/demo/13_audio_record_play/audio_record_play.xpr	01_demo_document/demo/13_audio_record_play	13_audio_record_play	156	11	3	0	top	XPR property (sources_1/TopModule)
+sd_card_audio	01_demo_document/demo/14_sd_card_audio/sd_card_audio.xpr	01_demo_document/demo/14_sd_card_audio	14_sd_card_audio	27	4	1	0	top	XPR property (sources_1/TopModule)
+hdmi_char	01_demo_document/demo/15_1_hdmi_char/hdmi_char.xpr	01_demo_document/demo/15_1_hdmi_char	15_1_hdmi_char	33	6	2	0	top	XPR property (sources_1/TopModule)
+lcd_char_an430	01_demo_document/demo/15_2_lcd_an430_char/lcd_char_an430.xpr	01_demo_document/demo/15_2_lcd_an430_char	15_2_lcd_an430_char	26	6	2	0	top	XPR property (sources_1/TopModule)
+lcd_char_an070	01_demo_document/demo/15_3_lcd_an070_char/lcd_char_an070.xpr	01_demo_document/demo/15_3_lcd_an070_char	15_3_lcd_an070_char	27	6	2	0	top	XPR property (sources_1/TopModule)
+sd_picture_hdmi	01_demo_document/demo/16_1_sd_picture_hdmi/sd_picture_hdmi.xpr	01_demo_document/demo/16_1_sd_picture_hdmi	16_1_sd_picture_hdmi	185	17	5	0	top	XPR property (sources_1/TopModule)
+sd_picture_lcd	01_demo_document/demo/16_2_sd_picture_lcd_an430/sd_picture_lcd.xpr	01_demo_document/demo/16_2_sd_picture_lcd_an430	16_2_sd_picture_lcd_an430	177	18	5	0	top	XPR property (sources_1/TopModule)
+sd_picture_lcd	01_demo_document/demo/16_3_sd_picture_lcd_an070/sd_picture_lcd.xpr	01_demo_document/demo/16_3_sd_picture_lcd_an070	16_3_sd_picture_lcd_an070	170	18	5	0	top	XPR property (sources_1/TopModule)
+dual_ov5640_an5642_hdmi	01_demo_document/demo/17_1_dual_ov5640_an5642_hdmi/dual_ov5640_an5642_hdmi.xpr	01_demo_document/demo/17_1_dual_ov5640_an5642_hdmi	17_1_dual_ov5640_an5642_hdmi	184	17	5	0	top	XPR property (sources_1/TopModule)
+ddr3_an5642_lcd	01_demo_document/demo/17_2_ddr3_an5642_an430_lcd/ddr3_an5642_lcd.xpr	01_demo_document/demo/17_2_ddr3_an5642_an430_lcd	17_2_ddr3_an5642_an430_lcd	197	18	5	0	top	XPR property (sources_1/TopModule)
+ddr3_an5642_an070_lcd	01_demo_document/demo/17_3_ddr3_an5642_an070_lcd/ddr3_an5642_an070_lcd.xpr	01_demo_document/demo/17_3_ddr3_an5642_an070_lcd	17_3_ddr3_an5642_an070_lcd	183	17	5	0	top	XPR property (sources_1/TopModule)
+ddr3_an5642_hdmi_sobel	01_demo_document/demo/18_ddr3_an5642_hdmi_sobel/ddr3_an5642_hdmi_sobel.xpr	01_demo_document/demo/18_ddr3_an5642_hdmi_sobel	18_ddr3_an5642_hdmi_sobel	196	17	5	0	top	XPR property (sources_1/TopModule)
+ad9238_hdmi_test	01_demo_document/demo/19_ad9238_hdmi_test/ad9238_hdmi_test.xpr	01_demo_document/demo/19_ad9238_hdmi_test	19_ad9238_hdmi_test	47	10	3	0	top	XPR property (sources_1/TopModule)
+ad7606_hdmi_test	01_demo_document/demo/20_ad7606_hdmi_test/ad7606_hdmi_test.xpr	01_demo_document/demo/20_ad7606_hdmi_test	20_ad7606_hdmi_test	48	10	3	0	top	XPR property (sources_1/TopModule)
+an108_adda_lcd	01_demo_document/demo/21_an108_adda_hdmi_test/an108_adda_lcd.xpr	01_demo_document/demo/21_an108_adda_hdmi_test	21_an108_adda_hdmi_test	92	14	5	0	top	XPR property (sources_1/TopModule)
+an9767_test	01_demo_document/demo/22_ad9767_dual_sin_wave/an9767_test.xpr	01_demo_document/demo/22_ad9767_dual_sin_wave	22_ad9767_dual_sin_wave	22	5	2	0	ad9767_test	XPR property (sources_1/TopModule)
+an9767_test	01_demo_document/demo/23_ad9767_dual_trig_wave/an9767_test.xpr	01_demo_document/demo/23_ad9767_dual_trig_wave	23_ad9767_dual_trig_wave	13	4	1	0	ad9767_test	XPR property (sources_1/TopModule)
+smg_interface_demo	01_demo_document/demo/24_smg_interface_demo/smg_interface_demo.xpr	01_demo_document/demo/24_smg_interface_demo	24_smg_interface_demo	6	1	0	0	smg_interface_demo	XPR property (sources_1/TopModule)
+temp_lm75_test	01_demo_document/demo/25_temp_lm75_test/temp_lm75_test.xpr	01_demo_document/demo/25_temp_lm75_test	25_temp_lm75_test	9	1	0	0	temp_test	XPR property (sources_1/TopModule)
+eth_test	01_demo_document/demo/26_ethernet_test/eth_test.xpr	01_demo_document/demo/26_ethernet_test	26_ethernet_test	233	24	11	0	ethernet_test	XPR property (sources_1/TopModule)
+ad9238_ethernet	01_demo_document/demo/27_ad9238_ethernet/ad9238_ethernet.xpr	01_demo_document/demo/27_ad9238_ethernet	27_ad9238_ethernet	198	17	5	0	top	XPR property (sources_1/TopModule)
+ad7606_ethernet	01_demo_document/demo/28_ad7606_ethernet/ad7606_ethernet.xpr	01_demo_document/demo/28_ad7606_ethernet	28_ad7606_ethernet	190	17	5	0	top	XPR property (sources_1/TopModule)
+ad9280_ethernet	01_demo_document/demo/29_ad9280_ethernet/ad9280_ethernet.xpr	01_demo_document/demo/29_ad9280_ethernet	29_ad9280_ethernet	209	20	6	0	top	XPR property (sources_1/TopModule)
+video_ethernet	01_demo_document/demo/30_video_ethernet/video_ethernet.xpr	01_demo_document/demo/30_video_ethernet	30_video_ethernet	84	15	4	0	video_ethernet	XPR property (sources_1/TopModule)
+usb_test	01_demo_document/demo/31_USB_speed_test/usb_test.xpr	01_demo_document/demo/31_USB_speed_test	31_USB_speed_test	109	15	5	0	top	XPR property (sources_1/TopModule)
+eeprom_test	01_demo_document/demo/6_i2c_eeprom_test/eeprom_test.xpr	01_demo_document/demo/6_i2c_eeprom_test	6_i2c_eeprom_test	45	4	1	0	i2c_eeprom_test	XPR property (sources_1/TopModule)

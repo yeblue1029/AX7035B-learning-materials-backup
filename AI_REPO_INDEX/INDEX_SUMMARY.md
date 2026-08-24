@@ -2,8 +2,9 @@
 
 **Repository:** AX7035B-learning-materials
 **GitHub:** https://github.com/yeblue1029/AX7035B-learning-materials
-**IndexedSourceCommit:** `dac63720e9783c69e626cefac27707a62c9392b8`
-**Generated:** 2026-08-24T11:24:08Z
+**RepositoryHeadAtGeneration:** `f1850641c3e40ee6acf7ce3c7ab3a61381592664`
+**IndexedSourceCommit:** `f1850641c3e40ee6acf7ce3c7ab3a61381592664`
+**Generated:** 2026-08-24T11:56:46Z
 
 ## Overview
 
@@ -12,12 +13,14 @@
 - **VivadoProjectCount (XPR):** 41
 - **DemoCount:** 42
 - **HDLCount:** 3494
-- **ConstraintCount:** 385
+- **ConstraintCount:** 385 (XDC: 383, UCF: 2)
 - **XCICount:** 113
 - **BDCount:** 0
 - **MicroBlazeSourceCount:** 144
 - **PDFCount:** 183
-- **GeneratedArtifactsExcludedCount:** 9504 (removed in Phase 3 cleanup)
+- **GeneratedArtifactsCurrentlyTracked:** 0
+- **Phase3HistoricalGeneratedArtifactsRemoved:** 9504
+- **LFSCount:** 2
 
 ## Top-Level Structure
 
@@ -69,16 +72,20 @@
 - Vivado projects (.xpr): 41
 - IP cores (.xci): 113
 - Block designs (.bd): 0
-- Constraint files (.xdc/.ucf): 385
+- Constraint files: 385 (XDC: 383, UCF: 2)
 - HDL source files: 3494
 - MicroBlaze files: 144
 - PDF documents: 183
-- LFS files: 2 (Verilog textbooks)
+- LFS files: 2
 - Demo entries: 42
 
 ## Index Scope
 
 This index covers the tracked source corpus after Phase 3 cleanup.
 Vivado generated build artifacts (*.runs, *.cache, *.hw, *.sim, *.gen,
-ip_user_files, .Xil, xsim.dir) have been removed from tracking.
+ip_user_files, .Xil, xsim.dir) are excluded from the index.
 AI-generated index and skill artifacts are excluded from the index scope.
+
+- GeneratedArtifactsCurrentlyTracked: 0 (should be 0)
+- Phase3HistoricalGeneratedArtifactsRemoved: 9504 (historical record)
+- LFSCount: 2 (from git lfs ls-files)

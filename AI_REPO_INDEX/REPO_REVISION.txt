@@ -1,6 +1,10 @@
-﻿IndexedSourceCommit=dac63720e9783c69e626cefac27707a62c9392b8
-GeneratedAt=2026-08-24T11:24:08Z
+﻿RepositoryHeadAtGeneration=f1850641c3e40ee6acf7ce3c7ab3a61381592664
+IndexedSourceCommit=f1850641c3e40ee6acf7ce3c7ab3a61381592664
+GeneratedAt=2026-08-24T11:56:46Z
 IndexMethod=git ls-files
-IndexScope=tracked source corpus excluding AI-generated index/skill artifacts
+IndexScope=tracked source corpus excluding AI-generated index/skill artifacts and Vivado generated directories
+IndexExcludes=AI_REPO_INDEX/**, .trae/skills/ax7035b-learning/**, .trae/.ignore, AX7035B_AI_Skill.md
+GeneratedArtifactsCurrentlyTracked=0
+Phase3HistoricalGeneratedArtifactsRemoved=9504
 TotalIndexedFiles=5233
 TotalDirectories=958

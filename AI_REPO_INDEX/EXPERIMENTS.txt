@@ -1,6 +1,6 @@
 ﻿# Demo Experiment Index
 # Only project directories with .xpr are listed. Loose assets (BMP/WAV) are NOT experiments.
-# Generated: 2026-08-24T11:24:08Z
+# Generated: 2026-08-24T11:56:46Z
 
 DemoName	RepoPath	XPR	HDLCount	ConstraintCount	IPCount	TCLCount	Status
 01_led_test	01_demo_document/demo/01_led_test	01_demo_document/demo/01_led_test/led_test.xpr	2	1	0	0	COMPLETE
@@ -44,4 +44,4 @@ DemoName	RepoPath	XPR	HDLCount	ConstraintCount	IPCount	TCLCount	Status
 30_video_ethernet	01_demo_document/demo/30_video_ethernet	01_demo_document/demo/30_video_ethernet/video_ethernet.xpr	84	15	4	0	COMPLETE
 31_USB_speed_test	01_demo_document/demo/31_USB_speed_test	01_demo_document/demo/31_USB_speed_test/usb_test.xpr	109	15	5	0	COMPLETE
 6_i2c_eeprom_test	01_demo_document/demo/6_i2c_eeprom_test	01_demo_document/demo/6_i2c_eeprom_test/eeprom_test.xpr	45	4	1	0	COMPLETE
-demo_test	demo_test	NONE	0	0	0	0	MISSING_XPR
+demo_test	demo_test	NONE	0	0	0	0	SPECIAL_NO_XPR

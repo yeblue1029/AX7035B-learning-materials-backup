@@ -1,0 +1,6 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="afifo_32i_64o_4096_synth_1" LaunchDir="D:/demo_ax7035/demo_ax7035/14_4hdmi_input_loopback_ddr/hdmi_input_loopback_ddr/hdmi_input_loopback_ddr.runs/afifo_32i_64o_4096_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="afifo_64i_32o_2048_synth_1" LaunchDir="D:/demo_ax7035/demo_ax7035/14_4hdmi_input_loopback_ddr/hdmi_input_loopback_ddr/hdmi_input_loopback_ddr.runs/afifo_64i_32o_2048_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+</Runs>
+

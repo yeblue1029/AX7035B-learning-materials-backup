@@ -1,0 +1,51 @@
+Copyright 1986-2019 Xilinx, Inc. All Rights Reserved.
+-----------------------------------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2019.1 (win64) Build 2552052 Fri May 24 14:49:42 MDT 2019
+| Date         : Tue Jul 30 09:49:33 2019
+| Host         : PC-201805041311 running 64-bit major release  (build 9200)
+| Command      : report_methodology -file top_methodology_drc_routed.rpt -pb top_methodology_drc_routed.pb -rpx top_methodology_drc_routed.rpx
+| Design       : top
+| Device       : xc7a35tfgg484-2
+| Speed File   : -2
+| Design State : Fully Routed
+-----------------------------------------------------------------------------------------------------------------------------------------------
+
+Report Methodology
+
+Table of Contents
+-----------------
+1. REPORT SUMMARY
+2. REPORT DETAILS
+
+1. REPORT SUMMARY
+-----------------
+            Netlist: netlist
+          Floorplan: design_1
+      Design limits: <entire design considered>
+             Max violations: <unlimited>
+             Violations found: 3
++-----------+----------+-------------------------------+------------+
+| Rule      | Severity | Description                   | Violations |
++-----------+----------+-------------------------------+------------+
+| LUTAR-1   | Warning  | LUT drives async reset alert  | 1          |
+| TIMING-18 | Warning  | Missing input or output delay | 2          |
++-----------+----------+-------------------------------+------------+
+
+2. REPORT DETAILS
+-----------------
+LUTAR-1#1 Warning
+LUT drives async reset alert  
+LUT cell color_bar_m0/h_cnt[11]_i_4, with 2 or more inputs, drives asynchronous preset/clear pin(s) ax_pwm_m0/duty_r_reg[22]/CLR, ax_pwm_m0/period_cnt_reg[0]/CLR, ax_pwm_m0/period_cnt_reg[10]/CLR, ax_pwm_m0/period_cnt_reg[11]/CLR, ax_pwm_m0/period_cnt_reg[12]/CLR, ax_pwm_m0/period_cnt_reg[13]/CLR, ax_pwm_m0/period_cnt_reg[14]/CLR, ax_pwm_m0/period_cnt_reg[15]/CLR, ax_pwm_m0/period_cnt_reg[16]/CLR, ax_pwm_m0/period_cnt_reg[17]/CLR, ax_pwm_m0/period_cnt_reg[18]/CLR, ax_pwm_m0/period_cnt_reg[19]/CLR, ax_pwm_m0/period_cnt_reg[1]/CLR, ax_pwm_m0/period_cnt_reg[20]/CLR, ax_pwm_m0/period_cnt_reg[21]/CLR (the first 15 of 93 listed). The LUT may glitch and trigger an unexpected reset, even if it is a properly timed path.
+Related violations: <none>
+
+TIMING-18#1 Warning
+Missing input or output delay  
+An input delay is missing on rst_n relative to clock(s) sys_clk
+Related violations: <none>
+
+TIMING-18#2 Warning
+Missing input or output delay  
+An output delay is missing on lcd_pwm relative to clock(s) sys_clk
+Related violations: <none>
+
+

@@ -1,0 +1,5 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="ROM_synth_1" LaunchDir="E:/Project/AN9767/CD/CD/verilog/ad9767_ax7102/sin_wave/an9767_test.runs/ROM_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+</Runs>
+

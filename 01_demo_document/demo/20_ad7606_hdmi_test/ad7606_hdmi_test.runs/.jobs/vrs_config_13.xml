@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<Runs Version="1" Minor="0">
+	<Run Id="adc_pll_synth_1" LaunchDir="I:/ax7035_2019.1/demo/20_ad7606_hdmi_test/ad7606_hdmi_test/ad7606_hdmi_test.runs/adc_pll_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="dpram1024x8_synth_1" LaunchDir="I:/ax7035_2019.1/demo/20_ad7606_hdmi_test/ad7606_hdmi_test/ad7606_hdmi_test.runs/dpram1024x8_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Run Id="video_pll_synth_1" LaunchDir="I:/ax7035_2019.1/demo/20_ad7606_hdmi_test/ad7606_hdmi_test/ad7606_hdmi_test.runs/video_pll_synth_1" FlowId="Vivado_Synthesis" FromStepId="vivado" ToStepId="vivado"/>
+	<Parameters>
+		<Parameter Name="runs.monitorLSFJobs" Val="true" Type="bool"/>
+	</Parameters>
+</Runs>
+

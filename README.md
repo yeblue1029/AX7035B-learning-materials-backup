@@ -17,6 +17,31 @@ AX7035B FPGA 开发板学习资料、实验工程、原理图、芯片资料与�
 - 不上传可重新生成的 Vivado、ISE 和编译输出
 - 第三方资料在确认公开再分发许可后再上传
 
+## 📚 PDF 在线文档
+
+仓库内全部 PDF 都可以在浏览器中直接在线阅读（翻页 / 缩放 / 文本搜索 / 缩略图 / 下载 / 打印），同时为每个文档保留可被云端 AI 与脚本直接获取的**原始 PDF 链接**。
+
+**📖 PDF 文档中心**（自动索引全部 183 个 PDF，可搜索 / 按目录分类）：
+
+https://yeblue1029.github.io/AX7035B-learning-materials-backup/
+
+示例在线阅读（基于 Mozilla PDF.js，跨域读取 GitHub raw，无需登录）：
+
+- 📖 [AX7035 开发板用户手册 REV1.1](https://yeblue1029.github.io/AX7035B-learning-materials-backup/web/viewer.html?file=https%3A%2F%2Fraw.githubusercontent.com%2Fyeblue1029%2FAX7035B-learning-materials-backup%2Fmain%2FAX7035%25E5%25BC%2580%25E5%258F%2591%25E6%259D%25BF%25E7%2594%25A8%25E6%2588%25B7%25E6%2589%258B%25E5%2586%258CREV1.1.pdf)
+- 📖 [vivado 下 LED 流水灯实验及仿真](https://yeblue1029.github.io/AX7035B-learning-materials-backup/web/viewer.html?file=https%3A%2F%2Fraw.githubusercontent.com%2Fyeblue1029%2FAX7035B-learning-materials-backup%2Fmain%2F01_demo_document%2F%25E5%25AE%259E%25E9%25AA%258C%25E6%2595%2599%25E7%25A8%258B%2F%25E5%25AE%259E%25E9%25AA%258C%25E6%2595%2599%25E7%25A8%258B%2F01.vivado%25E4%25B8%258BLED%25E6%25B5%2581%25E6%25B0%25B4%25E7%2581%25AF%25E5%25AE%259E%25E9%25AA%258C%25E5%258F%258A%25E4%25BB%25BF%25E7%259C%259F.pdf)
+- 📖 [Artix-7 Data Sheet (ds181)](https://yeblue1029.github.io/AX7035B-learning-materials-backup/web/viewer.html?file=https%3A%2F%2Fraw.githubusercontent.com%2Fyeblue1029%2FAX7035B-learning-materials-backup%2Fmain%2F05_%25E8%258A%25AF%25E7%2589%2587%25E6%2589%258B%25E5%2586%258C%2FArtix-7%2Fds181_Artix_7_Data_Sheet.pdf)
+
+**🤖 AI / 脚本获取原始 PDF**：每个 PDF 的原始文件托管在 `raw.githubusercontent.com`，无需 JavaScript 即可经 HTTP 获取，返回真实 PDF 二进制（已开启 CORS、支持 Range 分段请求）：
+
+```bash
+curl -L "https://raw.githubusercontent.com/yeblue1029/AX7035B-learning-materials-backup/main/AX7035%E5%BC%80%E5%8F%91%E6%9D%BF%E7%94%A8%E6%88%B7%E6%89%8B%E5%86%8CREV1.1.pdf" -o manual.pdf
+file manual.pdf   # -> PDF document
+```
+
+完整清单见 [`viewer/pdf-index.json`](viewer/pdf-index.json)，包含每个 PDF 的 `viewer_url` / `raw_url` / `github_url`。架构与维护说明见 [`viewer/MAINTENANCE.md`](viewer/MAINTENANCE.md)。
+
+> 注：Git-LFS 跟踪的 2 个大文件（带 `LFS` 标记）的 `raw` 返回的是 LFS 指针而非 PDF，详见 MAINTENANCE.md 的「已知限制」。
+
 ## AI-Assisted Learning
 
 This repository includes AI navigation and learning assistance:

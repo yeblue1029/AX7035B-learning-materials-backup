@@ -23,6 +23,7 @@ Exit code 0 = all hard checks passed (warnings allowed), 1 = failures.
 
 import argparse
 import hashlib
+import html as html_mod
 import json
 import os
 import sys
@@ -266,8 +267,11 @@ def main():
     else:
         try:
             h, _ = read_utf8(html_path)
+            # source_path is HTML-escaped in index.html (&#x27; for "'" etc.),
+            # so compare against the unescaped text, not the raw markup.
+            h_unescaped = html_mod.unescape(h)
             missing = [d["source_path"] for d in docs
-                       if d.get("source_path") and d["source_path"] not in h]
+                       if d.get("source_path") and d["source_path"] not in h_unescaped]
             if missing:
                 rep.fail(f"index.html does not embed {len(missing)} document paths "
                          f"(no-JS rule), e.g. {missing[:3]}")

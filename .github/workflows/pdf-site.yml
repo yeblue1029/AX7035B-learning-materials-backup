@@ -90,7 +90,7 @@ jobs:
           if-no-files-found: error
 
   ai-docs:
-    name: AI docs (chunk ${{ matrix.chunk }}/${{ env.AI_DOCS_NCHUNKS }})
+    name: AI docs (chunk ${{ matrix.chunk }} of 8)
     runs-on: ubuntu-latest
     timeout-minutes: 200
     strategy:

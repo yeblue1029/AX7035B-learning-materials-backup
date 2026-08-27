@@ -54,10 +54,22 @@ from concurrent.futures import ProcessPoolExecutor, as_completed
 from datetime import datetime, timezone
 from urllib.parse import quote
 
+# PyMuPDF is only needed by the `build` subcommand; `combine` / `cachekey`
+# must run on a stdlib-only environment (e.g. the finalize CI job).
+pymupdf = None
 try:
     import pymupdf  # PyMuPDF >= 1.24
 except ImportError:  # pragma: no cover
-    import fitz as pymupdf  # legacy name
+    try:
+        import fitz as pymupdf  # legacy name
+    except ImportError:
+        pymupdf = None
+
+
+def _require_pymupdf():
+    if pymupdf is None:
+        raise SystemExit("[build] PyMuPDF is required for this subcommand: pip install pymupdf")
+    return pymupdf
 
 # --------------------------------------------------------------------------
 # Configuration (simple, explainable, overridable via environment)
@@ -664,6 +676,7 @@ def reuse_manifest(doc_dir, sha):
 
 
 def cmd_build(args):
+    _require_pymupdf()
     root = os.path.abspath(args.root)
     out_dir = os.path.abspath(args.out)
     out_docs = os.path.join(out_dir, "docs")

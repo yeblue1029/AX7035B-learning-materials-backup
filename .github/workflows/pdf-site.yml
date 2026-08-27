@@ -5,6 +5,12 @@ name: Build & Deploy PDF Library
 # / README change. Runs the dependency-free scanner and publishes viewer/ as
 # the Pages site. PDFs themselves are NOT published — they are read from
 # raw.githubusercontent.com (CORS-enabled) so the site stays tiny.
+#
+# AI Reading Path: an 8-way matrix extracts per-PDF text (embedded first,
+# Tesseract OCR fallback) into viewer/ai/ on standard ubuntu-latest runners.
+# Chunk jobs cache their results (keyed on the repo PDF list + commit), so
+# unchanged PDFs are never re-OCR'd. The finalize job merges everything,
+# verifies it, enforces a size guard, and publishes the Pages artifact.
 
 on:
   push:
@@ -14,6 +20,7 @@ on:
       - '**/*.PDF'
       - '.gitattributes'
       - 'README.md'
+      - 'AI_ACCESS.md'
       - 'viewer/**'
       - 'scripts/**'
       - '.github/workflows/pdf-site.yml'
@@ -27,10 +34,15 @@ concurrency:
   group: pdf-site-${{ github.ref }}
   cancel-in-progress: true
 
+env:
+  AI_DOCS_NCHUNKS: '8'
+  AI_CACHE_TAG: v1
+
 jobs:
   build:
     name: Scan PDFs & build site
     runs-on: ubuntu-latest
+    timeout-minutes: 20
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -69,14 +81,131 @@ jobs:
           echo "Artifact contents:"
           ls -la viewer
 
+      - name: Upload viewer base artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: viewer-base
+          path: viewer
+          retention-days: 3
+          if-no-files-found: error
+
+  ai-docs:
+    name: AI docs (chunk ${{ matrix.chunk }}/${{ env.AI_DOCS_NCHUNKS }})
+    runs-on: ubuntu-latest
+    timeout-minutes: 200
+    strategy:
+      fail-fast: false
+      matrix:
+        chunk: [0, 1, 2, 3, 4, 5, 6, 7]
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: false # LFS pointer files are detected and marked lfs_not_materialized
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install PyMuPDF
+        run: pip install pymupdf
+
+      - name: Install Tesseract OCR (chi_sim + eng, local engine only)
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends tesseract-ocr tesseract-ocr-chi-sim tesseract-ocr-eng
+          tesseract --version | head -1
+          tesseract --list-langs
+
+      - name: Compute cache key (repo PDF list + commit)
+        id: ck
+        run: echo "key=$(python3 scripts/build-ai-docs.py cachekey)" >> "$GITHUB_OUTPUT"
+
+      - name: Restore AI docs cache (incremental; correctness never depends on it)
+        uses: actions/cache@v4
+        with:
+          path: viewer/ai/docs
+          key: ai-docs-${{ env.AI_CACHE_TAG }}-chunk${{ matrix.chunk }}-${{ steps.ck.outputs.key }}
+          restore-keys: |
+            ai-docs-${{ env.AI_CACHE_TAG }}-chunk${{ matrix.chunk }}-
+
+      - name: Build AI docs (embedded text first + OCR fallback)
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          REPO_BRANCH: ${{ github.ref_name }}
+          PAGES_BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          COMMIT_SHA: ${{ github.sha }}
+          OCR_BUDGET_MIN: '150'
+        run: python3 scripts/build-ai-docs.py build --chunk ${{ matrix.chunk }}/${{ env.AI_DOCS_NCHUNKS }} --workers 4
+
+      - name: Upload chunk artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: ai-docs-chunk-${{ matrix.chunk }}
+          path: viewer/ai/docs
+          retention-days: 3
+          if-no-files-found: error
+
+  finalize:
+    name: Combine, verify & size-guard
+    needs: [build, ai-docs]
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          lfs: false
+
+      - name: Setup Python (stdlib only)
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Assemble site skeleton
+        run: mkdir -p site/ai/docs
+
+      - name: Download viewer base
+        uses: actions/download-artifact@v4
+        with:
+          name: viewer-base
+          path: site
+
+      - name: Download all AI doc chunks
+        uses: actions/download-artifact@v4
+        with:
+          pattern: ai-docs-chunk-*
+          path: site/ai/docs
+          merge-multiple: true
+
+      - name: Combine AI index (index.json / index.html / AI_USAGE.txt)
+        env:
+          REPO_OWNER: ${{ github.repository_owner }}
+          REPO_NAME: ${{ github.event.repository.name }}
+          REPO_BRANCH: ${{ github.ref_name }}
+          PAGES_BASE_URL: https://${{ github.repository_owner }}.github.io/${{ github.event.repository.name }}
+          COMMIT_SHA: ${{ github.sha }}
+        run: python3 scripts/build-ai-docs.py combine --out site/ai
+
+      - name: Verify AI docs (JSON / UTF-8 / SHA256 / pages / URLs / size)
+        run: python3 scripts/verify-ai-docs.py --site site --repo . --size-guard-mb 700
+
+      - name: Size report (Pages hard limit is 1 GB)
+        run: |
+          du -sh site site/ai site/ai/docs
+          echo "largest artifacts:"
+          find site/ai -type f -printf '%s %p\n' | sort -rn | head -10 | awk '{printf "%.2f MB %s\n", $1/1e6, $2}'
+
       - name: Upload Pages artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: viewer
+          path: site
 
   deploy:
     name: Deploy to GitHub Pages
-    needs: build
+    needs: finalize
     runs-on: ubuntu-latest
     permissions:
       pages: write

@@ -42,6 +42,16 @@ file manual.pdf   # -> PDF document
 
 > 注：Git-LFS 跟踪的 2 个大文件（带 `LFS` 标记）的 `raw` 返回的是 LFS 指针而非 PDF，详见 MAINTENANCE.md 的「已知限制」。
 
+## 🤖 Web Chat AI 文档读取
+
+普通网页聊天 AI（ChatGPT / Gemini / DeepSeek 等）读取 PDF 正文时，**优先使用 AI Reading Path**（纯文本，无需执行 PDF.js 或解析二进制），不要默认先撞 raw PDF：
+
+- 机器入口（先读这个）：`https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/index.json`
+- 文档列表（静态 HTML，无需 JS）：`https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/`
+- 完整路由与证据规则：[`AI_ACCESS.md`](AI_ACCESS.md)
+
+raw PDF 保留为 **Agent / 脚本 / 证据复核（Source Evidence）** 路径；派生文本与原 PDF 冲突时以原 PDF 为准。
+
 ## AI-Assisted Learning
 
 This repository includes AI navigation and learning assistance:

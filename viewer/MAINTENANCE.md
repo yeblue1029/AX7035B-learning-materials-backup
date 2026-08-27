@@ -144,7 +144,39 @@ node scripts/scan-pdfs.mjs
 
 ---
 
-## 七、已知限制
+## 八、AI Reading Path（`/ai/`，2026-08 新增）
+
+为无法执行 PDF.js / 解析二进制的网页聊天 AI（ChatGPT / Gemini / DeepSeek 等）
+提供的纯文本读取路径，与上文 PDF.js 系统共生：
+
+```
+viewer/ai/
+  index.html        静态文档列表（核心内容无需 JS）
+  index.json        机器路由索引（AI 先读这个）
+  AI_USAGE.txt      给 AI 的纯文本使用说明
+  docs/<doc_id>/    manifest.json + full.txt + full.html + pages/ + blocks/
+```
+
+- 生成脚本：`scripts/build-ai-docs.py`（Python 3 + PyMuPDF；OCR 用 runner 本地
+  Tesseract `chi_sim+eng`，约 300 DPI，临时 PNG 用完即删；无云 OCR / API Key）。
+- 提取策略：**Embedded Text First + OCR Fallback**。页面分类阈值：
+  embedded 文字 ≥400 字符视为原生文字充分（禁止 OCR）；文字 <50 且图像覆盖
+  ≥35% 判定 scan_candidate（OCR）；介于其间且有大面积图像判定 mixed_candidate
+  （OCR 并标记 `TEXT_SOURCE=mixed`）；真空白/装饰页不强制 OCR。
+- `doc_id = sha256(仓库相对路径)[:16]`，确定性 ID；同一路径每次构建相同。
+- 每页记录 `TEXT_SOURCE: embedded|ocr|mixed|none|error`；OCR 页带
+  `OCR_ENGINE/OCR_LANGUAGE/OCR_DPI`。Git-LFS 指针文件标记
+  `lfs_not_materialized`，绝不解析指针文字。
+- 验证：`scripts/verify-ai-docs.py`（JSON/UTF-8/SHA256/页数/URL/大小 guard）。
+- Workflow：8 路 matrix 分片（每片一个标准 ubuntu-latest job，OCR 预算 150 分钟
+  硬上限），`actions/cache` 按 chunk 增量缓存（键含 PDF 清单 + commit + 提取器
+  版本），finalize job 合并 + 验证 + 体积保护（>700 MB 拒绝部署）后发布。
+- `viewer/ai/` 不提交 Git（见 `.gitignore`），仅经 Pages artifact 发布。
+- 人类入口不变；AI 路由规则见仓库根 `AI_ACCESS.md`。
+
+---
+
+## 九、已知限制
 
 1. **Git-LFS 文件（2 个，各 ~130 MB）**：
    `其它FPGA相关资料/Verilog资料/Verilog相关资料/02_Verilog数字系统设计教程_夏宇闻（第3版）.pdf` 及其修正版。

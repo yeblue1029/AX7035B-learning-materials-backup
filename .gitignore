@@ -81,3 +81,7 @@ viewer/LICENSE
 viewer/pdf-index.json
 # Temp dir used by the viewer build script.
 _pdfjs_build_tmp/
+
+# AI Reading Path build artifacts — generated in CI by scripts/build-ai-docs.py
+# (embedded text + Tesseract OCR), published via the Pages artifact only.
+viewer/ai/

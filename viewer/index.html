@@ -27,6 +27,10 @@
   .eyebrow{color:var(--accent);font-size:13px;letter-spacing:.14em;text-transform:uppercase;font-weight:700}
   h1{font-size:30px;margin:8px 0 6px;letter-spacing:.5px}
   .lead{color:var(--muted);max-width:760px;font-size:15px}
+  /* Static (no-JS) entry to the AI Reading Path for web chat AIs */
+  .ai-path{margin:12px 0 0;font-size:14px}
+  .ai-path a{color:var(--accent);font-weight:600;text-decoration:none}
+  .ai-path a:hover{text-decoration:underline}
   .stats{display:flex;flex-wrap:wrap;gap:12px;margin:20px 0 4px}
   .stat{background:var(--panel);border:1px solid var(--border);border-radius:12px;padding:12px 16px;min-width:118px;box-shadow:var(--shadow)}
   .stat .n{font-size:22px;font-weight:800;color:var(--text)}
@@ -93,6 +97,7 @@
     <div class="eyebrow">PDF Library · 在线文档中心</div>
     <h1>AX7035B 学习资料 PDF 文档中心</h1>
     <p class="lead">在浏览器中直接在线阅读仓库内全部 PDF（翻页 / 缩放 / 搜索 / 缩略图 / 下载 / 打印），同时为每个文档保留可被云端 AI 与脚本直接获取的原始 PDF 链接。静态站点，无需登录。</p>
+    <p class="ai-path">🤖 <a href="ai/">AI Reading Path</a> — AI 全文文本阅读路径（Web Chat AI 优先入口；静态 HTML，沿真实链接导航，无需 JS）</p>
   </header>
 
   <div class="stats" id="stats"></div>

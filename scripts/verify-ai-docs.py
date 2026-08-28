@@ -17,6 +17,17 @@ Checks (stdlib only, no PyMuPDF needed):
   11. index.html exists, UTF-8, contains every doc source_path in raw HTML (no-JS rule)
   12. AI_USAGE.txt exists
   13. artifact size report + guard (fail if ai/ > --size-guard-mb)
+  14. hyperlink navigation (web chat AI safe-to-open compatibility):
+      a. README.md links /ai/ as a REAL Markdown link (not backtick text)
+      b. AI_ACCESS.md links /ai/ as a REAL Markdown link
+      c. site root index.html contains a static href="ai/"
+      d. ai/index.html links every readable doc's landing page
+      e. every doc has docs/<doc_id>/index.html with real links to full.txt /
+         full.html / manifest.json / pages/index.html / blocks/index.html and all
+         link targets exist; absolute original GitHub/raw/viewer links present
+      f. pages/index.html links EVERY NNNN.txt on disk (and vice versa, no dead
+         links); blocks/index.html likewise for NNNN.json; no <script> in nav pages
+      g. full.html carries [Page TXT] / [Blocks JSON] links for every page
 
 Exit code 0 = all hard checks passed (warnings allowed), 1 = failures.
 """
@@ -26,6 +37,7 @@ import hashlib
 import html as html_mod
 import json
 import os
+import re
 import sys
 from urllib.parse import unquote, urlparse
 
@@ -197,11 +209,14 @@ def main():
                 if not os.path.isfile(p):
                     rep.fail(f"{label}: {what} missing")
             expected = {f"{i:04d}.txt" for i in range(1, npages + 1)}
-            actual = set(os.listdir(pages_dir)) if os.path.isdir(pages_dir) else set()
+            # index.html (nav layer) is an allowed extra entry in pages/blocks
+            actual = set(os.listdir(pages_dir)) - {"index.html"} \
+                if os.path.isdir(pages_dir) else set()
             if actual != expected:
                 rep.fail(f"{label}: pages/ has {len(actual)} files, expected {npages}")
             expected_b = {f"{i:04d}.json" for i in range(1, npages + 1)}
-            actual_b = set(os.listdir(blocks_dir)) if os.path.isdir(blocks_dir) else set()
+            actual_b = set(os.listdir(blocks_dir)) - {"index.html"} \
+                if os.path.isdir(blocks_dir) else set()
             if actual_b != expected_b:
                 rep.fail(f"{label}: blocks/ has {len(actual_b)} files, expected {npages}")
 
@@ -260,6 +275,72 @@ def main():
         if d.get("original_raw_url", "") and "raw.githubusercontent.com" not in d["original_raw_url"]:
             rep.warn(f"{label}: unexpected original_raw_url host")
 
+        # 14e. doc landing page: real links to every artifact, targets exist --
+        landing_path = os.path.join(doc_dir, "index.html")
+        if not os.path.isfile(landing_path):
+            rep.fail(f"{label}: doc landing page index.html missing")
+        else:
+            try:
+                lh, _ = read_utf8(landing_path)
+                if "<script" in lh:
+                    rep.fail(f"{label}: landing page contains <script> (no-JS rule)")
+                for href in ("manifest.json", "full.txt", "full.html",
+                             "pages/index.html", "blocks/index.html"):
+                    present = f'href="{href}"' in lh
+                    if st in TEXT_STATUSES:
+                        if not present:
+                            rep.fail(f"{label}: landing page missing link {href}")
+                        elif not os.path.isfile(os.path.join(doc_dir, href)):
+                            rep.fail(f"{label}: landing link {href} -> target missing")
+                    elif present and href != "manifest.json":
+                        rep.fail(f"{label}: landing advertises {href} for non-text doc")
+                if 'href="manifest.json"' not in lh:
+                    rep.fail(f"{label}: landing page missing manifest.json link")
+                for key in ("original_github_url", "original_raw_url", "viewer_url"):
+                    u = d.get(key) or ""
+                    if not u or u not in lh:
+                        rep.fail(f"{label}: landing page missing absolute {key} link")
+            except UnicodeDecodeError:
+                rep.fail(f"{label}: landing page not UTF-8")
+
+        # 14f. pages//blocks/ static indexes: every file linked, no dead links --
+        if st in TEXT_STATUSES and npages:
+            for sub, ext in (("pages", "txt"), ("blocks", "json")):
+                sub_dir = os.path.join(doc_dir, sub)
+                ipath = os.path.join(sub_dir, "index.html")
+                if not os.path.isfile(ipath):
+                    rep.fail(f"{label}: {sub}/index.html missing")
+                    continue
+                try:
+                    ih, _ = read_utf8(ipath)
+                except UnicodeDecodeError:
+                    rep.fail(f"{label}: {sub}/index.html not UTF-8")
+                    continue
+                if "<script" in ih:
+                    rep.fail(f"{label}: {sub}/index.html contains <script> (no-JS rule)")
+                on_disk = {f for f in os.listdir(sub_dir)
+                           if re.fullmatch(r"\d{4}\." + ext, f)}
+                for f in sorted(on_disk):
+                    if f'href="{f}"' not in ih:
+                        rep.fail(f"{label}: {sub}/index.html missing href for {f}")
+                        break
+                linked = set(re.findall(r'href="(\d{4}\.' + ext + r')"', ih))
+                for f in sorted(linked - on_disk):
+                    rep.fail(f"{label}: {sub}/index.html links non-existent {f}")
+
+            # 14g. full.html per-page [Page TXT] / [Blocks JSON] links --
+            fhp = os.path.join(doc_dir, "full.html")
+            if os.path.isfile(fhp):
+                try:
+                    fh, _ = read_utf8(fhp)
+                    n_pt = len(re.findall(r'href="pages/\d{4}\.txt"', fh))
+                    n_bj = len(re.findall(r'href="blocks/\d{4}\.json"', fh))
+                    if n_pt != npages or n_bj != npages:
+                        rep.fail(f"{label}: full.html per-page links "
+                                 f"txt={n_pt} json={n_bj}, expected {npages}/{npages}")
+                except UnicodeDecodeError:
+                    rep.fail(f"{label}: full.html not UTF-8")
+
     # 11-12. index.html + AI_USAGE.txt --------------------------------------
     html_path = os.path.join(ai, "index.html")
     if not os.path.isfile(html_path):
@@ -275,10 +356,45 @@ def main():
             if missing:
                 rep.fail(f"index.html does not embed {len(missing)} document paths "
                          f"(no-JS rule), e.g. {missing[:3]}")
+            # 14d. every readable doc's title links to its landing page
+            nolink = [d["doc_id"] for d in docs
+                      if d.get("extraction_status") in TEXT_STATUSES
+                      and f'href="docs/{d["doc_id"]}/index.html"' not in h]
+            if nolink:
+                rep.fail(f"index.html missing doc-landing links for {len(nolink)} "
+                         f"readable docs, e.g. {nolink[:3]}")
         except UnicodeDecodeError:
             rep.fail("ai/index.html not UTF-8")
     if not os.path.isfile(os.path.join(ai, "AI_USAGE.txt")):
         rep.fail("ai/AI_USAGE.txt missing")
+
+    # 14a-c. upstream hyperlink chain (safe-to-open navigation) --------------
+    ai_page_url = (base + "/ai/").rstrip("/")
+    md_link_re = re.compile(r"\[[^\]]+\]\((https?://[^)\s]+)\)")
+    for name in ("README.md", "AI_ACCESS.md"):
+        p = os.path.join(repo, name)
+        found = False
+        if os.path.isfile(p):
+            try:
+                t, _ = read_utf8(p)
+                found = any(u.rstrip("/") == ai_page_url
+                            for u in md_link_re.findall(t))
+            except UnicodeDecodeError:
+                pass
+        if not found:
+            rep.fail(f"{name}: no real Markdown hyperlink to {ai_page_url} "
+                     f"(web chat AI safe-to-open entry; backtick text is not enough)")
+    root_idx = os.path.join(site, "index.html")
+    if not os.path.isfile(root_idx):
+        rep.fail("site root index.html missing")
+    else:
+        try:
+            rh, _ = read_utf8(root_idx)
+            if not re.search(r'href=["\']ai/["\']', rh):
+                rep.fail('site root index.html lacks static href="ai/" '
+                         "(README -> Pages root -> /ai/ chain)")
+        except UnicodeDecodeError:
+            rep.fail("site root index.html not UTF-8")
 
     # 13. size report + guard ------------------------------------------------
     ai_mb = dir_size(ai) / 1e6
@@ -296,7 +412,7 @@ def main():
                 continue
             if f == "full.txt" and sz > biggest:
                 biggest, biggest_file = sz, os.path.relpath(p, ai)
-            if os.path.basename(dp) == "pages":
+            if os.path.basename(dp) == "pages" and re.fullmatch(r"\d{4}\.txt", f):
                 page_files += 1
             if os.path.basename(dp) == "blocks":
                 block_bytes += sz
@@ -310,6 +426,9 @@ def main():
     print("verify-ai-docs report")
     print("=" * 68)
     print(f"documents          : {len(docs)}  (statuses: {json.dumps(stat_hist, ensure_ascii=False)})")
+    landings = sum(1 for d in docs
+                   if os.path.isfile(os.path.join(ai, "docs", d.get("doc_id", ""), "index.html")))
+    print(f"doc landing pages  : {landings} / {len(docs)}  (hyperlink navigation layer)")
     print(f"total pdf pages    : {total_pages}")
     print(f"page txt files     : {page_files}")
     print(f"ai/ total size     : {ai_mb:.1f} MB   (docs/: {docs_mb:.1f} MB)")

@@ -23,39 +23,68 @@ https://yeblue1029.github.io/AX7035B-learning-materials-backup/
 
 **读取 PDF 正文时，不要默认优先使用 raw PDF。**
 网页聊天 AI 通常无法可靠执行 PDF.js，也经常无法直接解析 raw PDF 二进制。
-请按以下顺序访问：
+此外，部分网页聊天 AI（如 ChatGPT Web）受 **safe-to-open** 策略限制：
+只能打开出现在先前页面或用户消息中的 URL，不能根据 JSON 里的字符串
+自行拼接或打开新 URL。
 
-### 第 1 步：读取机器索引
+因此：**Web Chat AI 优先沿真实 HTML `<a href>` 链接导航，不要求根据
+JSON 字符串自行拼接或打开新 URL。**
 
-```
-https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/index.json
-```
+### 第 1 步：打开静态文档列表（首选入口）
 
-### 第 2 步：根据以下字段定位文档
+[AI Reading Path 文档列表](https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/)
+
+该页为纯静态 HTML：全部文档（标题 / 路径 / 页数 / 状态 / 链接）直接写在
+源码中，无需 JavaScript。本页所有 URL 都是真实链接，可以直接点击。
+
+### 第 2 步：在列表中定位文档
+
+按以下字段子串匹配定位（不需要用户手工提供 `doc_id`）：
 
 - `title`（PDF 内嵌标题）
 - `display_title`（文件名去扩展名，中文原名）
 - `filename`（中文文件名）
 - `source_path`（仓库内相对路径）
 
-子串匹配即可，不需要用户手工提供 `doc_id`。
+### 第 3 步：点击文档标题 → 文档 landing 页
 
-### 第 3 步：按任务选择派生资源（均为绝对 HTTPS URL，直接 fetch）
+列表中每行**文档标题**是指向 `docs/<doc_id>/index.html` 的真实链接。
+landing 页提供全部下一跳真实链接：
 
-| 字段 | 用途 |
-|---|---|
-| `ai_full_text_url` | 整本纯文本（带每页 `PDF_PAGE` / `TEXT_SOURCE` 标记） |
-| `ai_full_html_url` | 同上内容的 HTML 版 |
-| `ai_pages_base_url` | 单页文本：`<base>/0001.txt`（PDF 物理页，1-based） |
-| `ai_blocks_base_url` | 单页文本块 + bbox：`<base>/0001.json`（辅助阅读顺序 / 图表附近定位） |
-| `manifest_url` | 提取清单（SHA256、页数统计、OCR 元数据、证据等级） |
+- `full.txt` 整本纯文本（每页带 `PDF_PAGE` / `TEXT_SOURCE` 标记）
+- `full.html` 同内容 HTML（每页标题旁有 `[Page TXT]` / `[Blocks JSON]` 链接）
+- `pages/index.html` 单页文本索引（每个 PDF 物理页一个 `NNNN.txt` 链接）
+- `blocks/index.html` 单页文本块索引（每个 PDF 物理页一个 `NNNN.json` 链接）
+- `manifest.json` 提取清单
+- 原 PDF（GitHub 文件页 / raw 二进制）与 PDF.js Viewer
 
-精确查询某页内容时，优先读取目标页及相邻页（`pages/NNNN.txt`）。
+### 第 4 步：按任务点击下一跳
+
+精确查询某页内容时：landing → `pages/index.html` → 点击目标页
+`NNNN.txt`，并优先读取目标页及相邻页。
 
 ### 页码语义
 
 `PDF_PAGE` 是 PDF 文件的**物理页序（1-based）**，与 PDF.js Viewer 显示一致；
 不是教材自己印刷的页码。
+
+### 第二路径：机器 JSON 接口（Agent / 脚本）
+
+如果你的运行环境支持对**任意 URL** 发起 HTTP fetch（CLI Agent、脚本、
+部分 API 型 AI），可以跳过 HTML 导航，直接读取机器索引：
+
+[AI Reading Path 机器索引 index.json](https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/index.json)
+
+字段说明（均为绝对 HTTPS URL，直接 fetch）：
+
+| 字段 | 用途 |
+|---|---|
+| `ai_landing_url` | 文档 landing 页（超链接导航入口） |
+| `ai_full_text_url` | 整本纯文本（带每页 `PDF_PAGE` / `TEXT_SOURCE` 标记） |
+| `ai_full_html_url` | 同上内容的 HTML 版 |
+| `ai_pages_base_url` | 单页文本：`<base>/0001.txt`（PDF 物理页，1-based） |
+| `ai_blocks_base_url` | 单页文本块 + bbox：`<base>/0001.json`（辅助阅读顺序 / 图表附近定位） |
+| `manifest_url` | 提取清单（SHA256、页数统计、OCR 元数据、证据等级） |
 
 ### TEXT_SOURCE（每页证据等级）
 

@@ -1056,8 +1056,15 @@ def _list_numbered(dir_path, ext):
 
 
 def _write_numbered_index(dir_path, out_name, m, ext, label):
-    """pages/index.html / blocks/index.html: one real <a href> per file."""
+    """pages/index.html / blocks/index.html: one real <a href> per file.
+
+    Disk-truth driven: only written when the directory actually contains
+    numbered files (a 0-page PDF legitimately has no pages/ dir at all —
+    never fabricate an index, never advertise dead links).
+    """
     files = _list_numbered(dir_path, ext)
+    if not files:
+        return 0
     items = "\n".join(
         f'<li><a href="{f}">第 {int(f[:4])} 页 · PDF_PAGE {int(f[:4])} · {f}</a></li>'
         for f in files)
@@ -1065,21 +1072,39 @@ def _write_numbered_index(dir_path, out_name, m, ext, label):
             f"<p class=\"meta\">{len(files)} 个文件 · PDF 物理页（1-based）· "
             f"SOURCE_PATH: {html_mod.escape(m['source_path'])}</p>\n"
             f"<ol>\n{items}\n</ol>\n")
+    os.makedirs(dir_path, exist_ok=True)
     with open(os.path.join(dir_path, out_name), "w", encoding="utf-8") as fh:
         fh.write(_nav_doc_html(f"{m.get('title', m['filename'])} · {label} · AI Reading Path",
                                "../index.html", "文档首页（landing）", body))
     return len(files)
 
 
-def _write_doc_landing(doc_dir, m, has_text):
-    """docs/<doc_id>/index.html — every next hop as a real <a href>."""
+def _doc_artifacts(doc_dir):
+    """What derived artifacts really exist on disk for this doc."""
+    return {
+        "full_txt": os.path.isfile(os.path.join(doc_dir, "full.txt")),
+        "full_html": os.path.isfile(os.path.join(doc_dir, "full.html")),
+        "pages": bool(_list_numbered(os.path.join(doc_dir, "pages"), "txt")),
+        "blocks": bool(_list_numbered(os.path.join(doc_dir, "blocks"), "json")),
+    }
+
+
+def _write_doc_landing(doc_dir, m, art):
+    """docs/<doc_id>/index.html — every next hop as a real <a href>.
+
+    Only artifacts that actually exist get linked (disk truth), so a landing
+    page can never advertise a dead target.
+    """
     st = m.get("extraction_status", "error")
     u = urls_for(m["source_path"], m["doc_id"])
     links = []
-    if has_text:
+    if art["full_txt"]:
         links.append('<li>📄 <a href="full.txt">full.txt — 整本纯文本（每页带 PDF_PAGE / TEXT_SOURCE 标记）</a></li>')
+    if art["full_html"]:
         links.append('<li>🌐 <a href="full.html">full.html — 整本 HTML（每页旁有 [Page TXT] / [Blocks JSON] 链接）</a></li>')
+    if art["pages"]:
         links.append('<li>📑 <a href="pages/index.html">pages/ — 单页文本索引（每个 PDF 物理页一个 NNNN.txt 链接）</a></li>')
+    if art["blocks"]:
         links.append('<li>🧱 <a href="blocks/index.html">blocks/ — 单页文本块索引（每个 PDF 物理页一个 NNNN.json 链接）</a></li>')
     links.append('<li>🧾 <a href="manifest.json">manifest.json — 提取清单（SHA256 / 页数统计 / OCR 元数据）</a></li>')
     links.append(f'<li>🐙 <a href="{u["original_github_url"]}">原 PDF — GitHub 文件页</a></li>')
@@ -1089,8 +1114,9 @@ def _write_doc_landing(doc_dir, m, has_text):
     counts = (f"embedded {m.get('embedded_page_count', 0)} / ocr {m.get('ocr_page_count', 0)} / "
               f"mixed {m.get('mixed_page_count', 0)} / none {m.get('empty_page_count', 0)} / "
               f"error {m.get('error_pages', 0)}")
+    has_any_text = art["full_txt"] or art["full_html"] or art["pages"]
     notice = ""
-    if not has_text:
+    if not has_any_text:
         notice = (f'<p><span class="badge {st}">{st}</span> 本文档没有可用的派生文本'
                   f'（{html_mod.escape(m.get("notes", ""))}）。'
                   '请阅读 manifest.json 与原 PDF；不要把 LFS 指针文字当作正文。</p>\n')
@@ -1142,20 +1168,27 @@ def _patch_full_html(doc_dir):
 
 
 def _generate_nav(docs_dir, manifests):
-    """Build the whole hyperlink navigation layer. Returns stats dict."""
+    """Build the whole hyperlink navigation layer. Returns stats dict.
+
+    Disk-truth driven: 0-page PDFs (status ok, pdf_page_count 0) and LFS
+    pointer docs legitimately lack pages//blocks/ dirs — skip their indexes
+    instead of crashing; link only what exists.
+    """
     landings = pages_idx = blocks_idx = patched = 0
     for m in manifests:
         doc_dir = os.path.join(docs_dir, m["doc_id"])
         if not os.path.isdir(doc_dir):
             continue
-        has_text = m.get("extraction_status") in ("ok", "partial", "text_sparse", "ocr_failed")
-        _write_doc_landing(doc_dir, m, has_text)
+        art = _doc_artifacts(doc_dir)
+        _write_doc_landing(doc_dir, m, art)
         landings += 1
-        if has_text:
+        if art["pages"]:
             pages_idx += 1 if _write_numbered_index(
                 os.path.join(doc_dir, "pages"), "index.html", m, "txt", "pages 单页文本") else 0
+        if art["blocks"]:
             blocks_idx += 1 if _write_numbered_index(
                 os.path.join(doc_dir, "blocks"), "index.html", m, "json", "blocks 单页文本块") else 0
+        if art["full_html"] and art["pages"] and art["blocks"]:
             patched += 1 if _patch_full_html(doc_dir) else 0
     return {"landings": landings, "pages_index": pages_idx,
             "blocks_index": blocks_idx, "full_html_patched": patched}

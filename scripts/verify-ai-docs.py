@@ -276,6 +276,14 @@ def main():
             rep.warn(f"{label}: unexpected original_raw_url host")
 
         # 14e. doc landing page: real links to every artifact, targets exist --
+        # Disk truth: an artifact must be linked iff it exists on disk
+        # (0-page "ok" docs and LFS pointer docs legitimately have no pages/).
+        pages_files = [f for f in os.listdir(os.path.join(doc_dir, "pages"))
+                       if re.fullmatch(r"\d{4}\.txt", f)] \
+            if os.path.isdir(os.path.join(doc_dir, "pages")) else []
+        blocks_files = [f for f in os.listdir(os.path.join(doc_dir, "blocks"))
+                        if re.fullmatch(r"\d{4}\.json", f)] \
+            if os.path.isdir(os.path.join(doc_dir, "blocks")) else []
         landing_path = os.path.join(doc_dir, "index.html")
         if not os.path.isfile(landing_path):
             rep.fail(f"{label}: doc landing page index.html missing")
@@ -284,18 +292,18 @@ def main():
                 lh, _ = read_utf8(landing_path)
                 if "<script" in lh:
                     rep.fail(f"{label}: landing page contains <script> (no-JS rule)")
-                for href in ("manifest.json", "full.txt", "full.html",
-                             "pages/index.html", "blocks/index.html"):
+                for href, must_exist in (
+                    ("manifest.json", True),
+                    ("full.txt", os.path.isfile(os.path.join(doc_dir, "full.txt"))),
+                    ("full.html", os.path.isfile(os.path.join(doc_dir, "full.html"))),
+                    ("pages/index.html", bool(pages_files)),
+                    ("blocks/index.html", bool(blocks_files)),
+                ):
                     present = f'href="{href}"' in lh
-                    if st in TEXT_STATUSES:
-                        if not present:
-                            rep.fail(f"{label}: landing page missing link {href}")
-                        elif not os.path.isfile(os.path.join(doc_dir, href)):
-                            rep.fail(f"{label}: landing link {href} -> target missing")
-                    elif present and href != "manifest.json":
-                        rep.fail(f"{label}: landing advertises {href} for non-text doc")
-                if 'href="manifest.json"' not in lh:
-                    rep.fail(f"{label}: landing page missing manifest.json link")
+                    if must_exist and not present:
+                        rep.fail(f"{label}: landing page missing link {href}")
+                    elif present and not must_exist:
+                        rep.fail(f"{label}: landing advertises {href} but target missing")
                 for key in ("original_github_url", "original_raw_url", "viewer_url"):
                     u = d.get(key) or ""
                     if not u or u not in lh:
@@ -304,42 +312,46 @@ def main():
                 rep.fail(f"{label}: landing page not UTF-8")
 
         # 14f. pages//blocks/ static indexes: every file linked, no dead links --
-        if st in TEXT_STATUSES and npages:
-            for sub, ext in (("pages", "txt"), ("blocks", "json")):
-                sub_dir = os.path.join(doc_dir, sub)
-                ipath = os.path.join(sub_dir, "index.html")
-                if not os.path.isfile(ipath):
-                    rep.fail(f"{label}: {sub}/index.html missing")
-                    continue
-                try:
-                    ih, _ = read_utf8(ipath)
-                except UnicodeDecodeError:
-                    rep.fail(f"{label}: {sub}/index.html not UTF-8")
-                    continue
-                if "<script" in ih:
-                    rep.fail(f"{label}: {sub}/index.html contains <script> (no-JS rule)")
-                on_disk = {f for f in os.listdir(sub_dir)
-                           if re.fullmatch(r"\d{4}\." + ext, f)}
-                for f in sorted(on_disk):
-                    if f'href="{f}"' not in ih:
-                        rep.fail(f"{label}: {sub}/index.html missing href for {f}")
-                        break
-                linked = set(re.findall(r'href="(\d{4}\.' + ext + r')"', ih))
-                for f in sorted(linked - on_disk):
-                    rep.fail(f"{label}: {sub}/index.html links non-existent {f}")
+        # Required iff numbered files exist on disk (disk truth).
+        for sub, ext, files in (("pages", "txt", pages_files),
+                                ("blocks", "json", blocks_files)):
+            sub_dir = os.path.join(doc_dir, sub)
+            ipath = os.path.join(sub_dir, "index.html")
+            if not files:
+                if os.path.isfile(ipath):
+                    rep.fail(f"{label}: {sub}/index.html exists but no numbered files")
+                continue
+            if not os.path.isfile(ipath):
+                rep.fail(f"{label}: {sub}/index.html missing")
+                continue
+            try:
+                ih, _ = read_utf8(ipath)
+            except UnicodeDecodeError:
+                rep.fail(f"{label}: {sub}/index.html not UTF-8")
+                continue
+            if "<script" in ih:
+                rep.fail(f"{label}: {sub}/index.html contains <script> (no-JS rule)")
+            for f in files:
+                if f'href="{f}"' not in ih:
+                    rep.fail(f"{label}: {sub}/index.html missing href for {f}")
+                    break
+            linked = set(re.findall(r'href="(\d{4}\.' + ext + r')"', ih))
+            for f in sorted(linked - set(files)):
+                rep.fail(f"{label}: {sub}/index.html links non-existent {f}")
 
-            # 14g. full.html per-page [Page TXT] / [Blocks JSON] links --
-            fhp = os.path.join(doc_dir, "full.html")
-            if os.path.isfile(fhp):
-                try:
-                    fh, _ = read_utf8(fhp)
-                    n_pt = len(re.findall(r'href="pages/\d{4}\.txt"', fh))
-                    n_bj = len(re.findall(r'href="blocks/\d{4}\.json"', fh))
-                    if n_pt != npages or n_bj != npages:
-                        rep.fail(f"{label}: full.html per-page links "
-                                 f"txt={n_pt} json={n_bj}, expected {npages}/{npages}")
-                except UnicodeDecodeError:
-                    rep.fail(f"{label}: full.html not UTF-8")
+        # 14g. full.html per-page [Page TXT] / [Blocks JSON] links --
+        fhp = os.path.join(doc_dir, "full.html")
+        if os.path.isfile(fhp) and (pages_files or blocks_files):
+            try:
+                fh, _ = read_utf8(fhp)
+                n_pt = len(re.findall(r'href="pages/\d{4}\.txt"', fh))
+                n_bj = len(re.findall(r'href="blocks/\d{4}\.json"', fh))
+                if n_pt != len(pages_files) or n_bj != len(blocks_files):
+                    rep.fail(f"{label}: full.html per-page links "
+                             f"txt={n_pt} json={n_bj}, expected "
+                             f"{len(pages_files)}/{len(blocks_files)}")
+            except UnicodeDecodeError:
+                rep.fail(f"{label}: full.html not UTF-8")
 
     # 11-12. index.html + AI_USAGE.txt --------------------------------------
     html_path = os.path.join(ai, "index.html")

@@ -28,6 +28,8 @@ Checks (stdlib only, no PyMuPDF needed):
       f. pages/index.html links EVERY NNNN.txt on disk (and vice versa, no dead
          links); blocks/index.html likewise for NNNN.json; no <script> in nav pages
       g. full.html carries [Page TXT] / [Blocks JSON] links for every page
+      h. no legacy entry semantics ("机器入口（先读这个）" etc.) in tracked
+         entry docs — index.json is agent/script API, not the web chat AI entry
 
 Exit code 0 = all hard checks passed (warnings allowed), 1 = failures.
 """
@@ -407,6 +409,21 @@ def main():
                          "(README -> Pages root -> /ai/ chain)")
         except UnicodeDecodeError:
             rep.fail("site root index.html not UTF-8")
+
+    # 14h. no legacy entry semantics left in tracked entry docs ---------------
+    # index.json must never again be described as the web chat AI first entry
+    # ("机器入口（先读这个）" etc.) in any current deployable entry document.
+    legacy_re = re.compile(r"机器入口|先读这个|机器路由索引（AI")
+    for name in ("README.md", "AI_ACCESS.md", "viewer/MAINTENANCE.md"):
+        p = os.path.join(repo, name)
+        if os.path.isfile(p):
+            try:
+                t, _ = read_utf8(p)
+                if legacy_re.search(t):
+                    rep.fail(f"{name}: legacy entry semantics found "
+                             "(index.json described as web chat AI first entry)")
+            except UnicodeDecodeError:
+                rep.fail(f"{name}: not UTF-8")
 
     # 13. size report + guard ------------------------------------------------
     ai_mb = dir_size(ai) / 1e6

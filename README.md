@@ -9,6 +9,19 @@ AX7035B FPGA 开发板学习资料、实验工程、原理图、芯片资料与�
 - 便于按照实验目录向 AI 提问和排查工程问题
 - 记录实验目的、硬件连接、构建步骤和实验现象
 
+## 🤖 Web Chat AI 文档读取
+
+普通网页聊天 AI（ChatGPT / Gemini / DeepSeek 等）读取 PDF 正文时，**优先使用 AI Reading Path**（纯文本，无需执行 PDF.js 或解析二进制），不要默认先撞 raw PDF。
+
+- **Web Chat AI 阅读入口（Web Chat AI 从这里开始）**：[AI Reading Path](https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/) — 打开后**只沿页面真实链接继续**：文档标题 → 文档页（landing）→ `full.txt` / `pages` / `blocks`
+- 机器 JSON 接口（Agent / script API；供支持任意 URL fetch 的 Agent / 脚本使用，**非 Web Chat AI 首选入口**）：[index.json](https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/index.json)
+- AI 使用说明：[AI_USAGE.txt](https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/AI_USAGE.txt)
+- 完整路由与证据规则：[AI_ACCESS.md](AI_ACCESS.md)
+
+网页聊天 AI 受 safe-to-open 策略限制（只能打开出现在先前页面或用户消息中的 URL），因此应**沿上述 HTML 页面中的真实 `<a href>` 链接逐跳点击导航**，不需要根据 JSON 字符串自行拼接或打开新 URL。
+
+raw PDF 保留为 **Agent / 脚本 / 证据复核（Source Evidence）** 路径；派生文本与原 PDF 冲突时以原 PDF 为准。
+
 ## 内容整理原则
 
 - 优先上传已经解压的源码和工程目录
@@ -41,19 +54,6 @@ file manual.pdf   # -> PDF document
 完整清单见 [`viewer/pdf-index.json`](viewer/pdf-index.json)，包含每个 PDF 的 `viewer_url` / `raw_url` / `github_url`。架构与维护说明见 [`viewer/MAINTENANCE.md`](viewer/MAINTENANCE.md)。
 
 > 注：Git-LFS 跟踪的 2 个大文件（带 `LFS` 标记）的 `raw` 返回的是 LFS 指针而非 PDF，详见 MAINTENANCE.md 的「已知限制」。
-
-## 🤖 Web Chat AI 文档读取
-
-普通网页聊天 AI（ChatGPT / Gemini / DeepSeek 等）读取 PDF 正文时，**优先使用 AI Reading Path**（纯文本，无需执行 PDF.js 或解析二进制），不要默认先撞 raw PDF。
-
-- **Web Chat AI 首选入口（静态 HTML 文档列表）**：[AI Reading Path](https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/) — 打开此页后沿页面内**真实链接**导航：文档标题 → 文档页（landing）→ `full.txt` / `pages` / `blocks`
-- 机器 JSON 接口（供支持任意 URL fetch 的 Agent / 脚本使用）：[index.json](https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/index.json)
-- AI 使用说明：[AI_USAGE.txt](https://yeblue1029.github.io/AX7035B-learning-materials-backup/ai/AI_USAGE.txt)
-- 完整路由与证据规则：[AI_ACCESS.md](AI_ACCESS.md)
-
-网页聊天 AI 受 safe-to-open 策略限制（只能打开出现在先前页面或用户消息中的 URL），因此应**沿上述 HTML 页面中的真实 `<a href>` 链接逐跳点击导航**，不需要根据 JSON 字符串自行拼接或打开新 URL。
-
-raw PDF 保留为 **Agent / 脚本 / 证据复核（Source Evidence）** 路径；派生文本与原 PDF 冲突时以原 PDF 为准。
 
 ## AI-Assisted Learning
 

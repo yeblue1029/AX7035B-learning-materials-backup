@@ -152,7 +152,7 @@ node scripts/scan-pdfs.mjs
 ```
 viewer/ai/
   index.html        静态文档列表（核心内容无需 JS）
-  index.json        机器路由索引（AI 先读这个）
+  index.json        机器 JSON 接口（Agent / script API，非 Web Chat AI 首选入口）
   AI_USAGE.txt      给 AI 的纯文本使用说明
   docs/<doc_id>/    manifest.json + full.txt + full.html + pages/ + blocks/
 ```
